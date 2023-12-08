@@ -7,10 +7,10 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-  project: ""
+  project: "default"
   source:
     path: '/dev'
-    repoURL: '<TODO: fill in the git/helm repo url>'
+    repoURL: 'https://github.com/blcporgs/enterpriseappdeployments'
 status:
   health: {}
   summary: {}
