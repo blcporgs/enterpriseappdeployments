@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: "default"
   source:
-    path: '/dev'
+    path: './dev'
     repoURL: 'https://github.com/blcporgs/enterpriseappdeployments'
 status:
   health: {}
