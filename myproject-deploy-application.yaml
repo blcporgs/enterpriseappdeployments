@@ -2,12 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  name: myproject-deploy
+  name: enterpriseapp-deploy
   namespace: argocd
 spec:
   destination:
     server: https://kubernetes.default.svc
+    namespace: enteriseapp
   project: "default"
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: foo // namespace of managing Argo CD instance 
+    syncOptions:
+    - CreateNamespace=true
   source:
     path: './dev'
     repoURL: 'https://github.com/blcporgs/enterpriseappdeployments'
