@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  labels:
+    move2kube.konveyor.io/service: myproject
+  name: myproject
+spec:
+  rules:
+    - host: customerportal.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: orders
+                port:
+                  name: port-8080
+            path: /orders
+            pathType: Prefix
+          - backend:
+              service:
+                name: inventory
+                port:
+                  name: port-8080
+            path: /inventory
+            pathType: Prefix
+          - backend:
+              service:
+                name: gateway
+                port:
+                  name: port-8080
+            path: /gateway
+            pathType: Prefix
+          - backend:
+              service:
+                name: customers
+                port:
+                  name: port-8080
+            path: /customers
+            pathType: Prefix
+          - backend:
+              service:
+                name: frontend
+                port:
+                  name: port-8080
+            path: /frontend
+            pathType: Prefix
+status:
+  loadBalancer: {}

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  labels:
+    move2kube.konveyor.io/service: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      move2kube.konveyor.io/service: frontend
+  serviceName: frontend
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        move2kube.konveyor.io/service: frontend
+      name: frontend
+    spec:
+      containers:
+        - env:
+            - name: BLUEMIX_REGION
+              value: region
+            - name: VCAP_SERVICES
+              valueFrom:
+                secretKeyRef:
+                  key: VCAP_SERVICES
+                  name: frontend-vcapasenv
+            - name: VCAP_APPLICATION
+              valueFrom:
+                secretKeyRef:
+                  key: VCAP_APPLICATION
+                  name: frontend-vcapasenv
+          image: index.docker.io/korificf/frontend:latest
+          imagePullPolicy: Always
+          name: frontend
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              ephemeral-storage: 1024M
+              memory: 1024M
+      imagePullSecrets:
+        - name: index-docker-io-imagepullsecret
+      restartPolicy: Always
+      securityContext: {}
+  updateStrategy: {}
+status:
+  availableReplicas: 0
+  replicas: 0
